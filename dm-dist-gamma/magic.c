@@ -3,6 +3,8 @@
 *  Usage : The actual effect of magic.                                    *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
+#include <string.h>
 
 #include <stdio.h>
 #include <assert.h>
@@ -24,8 +26,10 @@ void damage(struct char_data *ch, struct char_data *victim,
             int damage, int weapontype);
 bool saves_spell(struct char_data *ch, sh_int spell);
 void weight_change_object(struct obj_data *obj, int weight);
-char *strdup(char *source);
 int dice(int number, int size);
+
+/* function prototype must come first */
+void do_look(struct char_data *ch, char *argument, int cmd);
 
 
 /* Offensive Spells */

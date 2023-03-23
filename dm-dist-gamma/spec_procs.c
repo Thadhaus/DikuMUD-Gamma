@@ -3,6 +3,7 @@
 *  Usage: Procedures handling special procedures for object/room/mobile   *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
 
 #include <stdio.h>
 #include <string.h>

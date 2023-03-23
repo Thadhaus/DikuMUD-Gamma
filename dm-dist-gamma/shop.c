@@ -3,6 +3,7 @@
 *  Usage: Procedures handling shops and shopkeepers.                      *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
 
 #include <stdio.h>
 #include <string.h>

@@ -3,6 +3,7 @@
 *  Usage : Commands mainly using objects.                                 *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -48,7 +49,7 @@ void weight_change_object(struct obj_data *obj, int weight)
 		GET_OBJ_WEIGHT(obj) += weight;
 		obj_to_obj(obj, tmp_obj);
 	} else {
-		log("Unknown attempt to subtract weight from an object.");
+		console_log("Unknown attempt to subtract weight from an object.");
 	}
 }
 
@@ -823,7 +824,7 @@ void wear(struct char_data *ch, struct obj_data *obj_object, int keyword)
 			send_to_char(buffer, ch);
 		} break;
 		default: {
-			log("Unknown type called in wear.");
+			console_log("Unknown type called in wear.");
 		} break;
 	}
 }

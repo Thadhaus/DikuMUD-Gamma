@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <stdio.h>
 #include <ctype.h>
 #include "structs.h"
@@ -26,7 +28,7 @@ void del(char *filename, int name)
 	if (!(fl = fopen(filename, "r+")))
 	{
 		perror("list");
-		exit();
+		exit(-11);
 	}
 
 	puts("Searching for player:");
@@ -37,7 +39,7 @@ void del(char *filename, int name)
 		if (feof(fl))
 		{
 			fprintf(stderr, "delplay: could not locate %d.\n", name);
-			exit();
+			exit(-12);
 		}
 
 		if (num == name) {
@@ -45,7 +47,7 @@ void del(char *filename, int name)
 			scanf("%s", confirm);
 			if (str_cmp("Yes", confirm)) {
 				printf("Aborted delete.\n");
-				exit();
+				exit(-13);
 			} else {
 				break;
 			}

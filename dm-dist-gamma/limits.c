@@ -3,6 +3,8 @@
 *  Usage: Procedures controling gain and limit.                           *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
+#include <string.h>
 
 #include <stdio.h>
 #include <assert.h>

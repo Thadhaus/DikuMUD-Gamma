@@ -1,4 +1,5 @@
 /* Present a message on a port */
+#include <stdlib.h>
 
 #include <errno.h>
 #include <stdio.h>
@@ -31,7 +32,7 @@ main(int argc, char **argv)
 	if (argc != 3)
 	{
 		fputs("Usage: sign (<filename> | - ) <port #>\n", stderr);
-		exit();
+		exit(-20);
 	}
 	if (!strcmp(argv[1], "-"))
 	{
@@ -41,7 +42,7 @@ main(int argc, char **argv)
 	else if (!(fl = fopen(argv[1], "r")))
 	{
 		perror(argv[1]);
-		exit();
+		exit(-21);
 	}
 	for (;;)
 	{
@@ -52,14 +53,14 @@ main(int argc, char **argv)
 		if (strlen(buf) + strlen(txt) > 2048)
 		{
 			fputs("String too long\n", stderr);
-			exit();
+			exit(-22);
 		}
 		strcat(txt, buf);
 	}
 	if ((port = atoi(argv[2])) <= 1024)
 	{
 		fputs("Illegal port #\n", stderr);
-		exit();
+		exit(-23);
 	}
 	watch(port, txt);
 }
@@ -81,7 +82,7 @@ void watch(int port, char *text)
 		if (select(64, &input_set, 0, 0, 0) < 0)
 		{
 			perror("select");
-			exit();
+			exit(-24);
 		}
 		if (FD_ISSET(mother, &input_set))
 			wave(mother, text);
@@ -158,7 +159,7 @@ int init_socket(int port)
 	if (hp == NULL)
 	{
 		perror("gethostbyname");
-		exit();
+		exit(-25);
 	}
 	sa.sin_family = hp->h_addrtype;
 	sa.sin_port	= htons(port);
@@ -166,13 +167,13 @@ int init_socket(int port)
 	if (s < 0) 
 	{
 		perror("Init-socket");
-		exit();
+		exit(-26);
  	}
 	if (setsockopt (s, SOL_SOCKET, SO_REUSEADDR,
 		(char *) &opt, sizeof (opt)) < 0) 
 	{
 		perror ("setsockopt REUSEADDR");
-		exit ();
+		exit (-27);
 	}
 
 	ld.l_onoff = 1;
@@ -180,13 +181,13 @@ int init_socket(int port)
 	if (setsockopt(s, SOL_SOCKET, SO_LINGER, &ld, sizeof(ld)) < 0)
 	{
 		perror("setsockopt LINGER");
-		exit();
+		exit(-28);
 	}
-	if (bind(s, &sa, sizeof(sa), 0) < 0)
+	if (bind(s, &sa, sizeof(sa)) < 0)
 	{
 		perror("bind");
 		close(s);
-		exit();
+		exit(-29);
 	}
 	listen(s, 5);
 	return(s);
@@ -222,9 +223,9 @@ int write_to_descriptor(int desc, char *txt)
 
 void nonblock(int s)
 {
-	if (fcntl(s, F_SETFL, FNDELAY) == -1)
+	if (fcntl(s, F_SETFL, O_NDELAY) == -1)
 	{
 		perror("Noblock");
-		exit();
+		exit(-30);
 	}
 }

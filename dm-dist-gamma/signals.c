@@ -3,6 +3,7 @@
 *  Usage : Signal Trapping.                                               *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
 
 #include <signal.h>
 #include <stdio.h>
@@ -48,7 +49,7 @@ int checkpointing(void)
 	
 	if (!tics)
 	{
-		log("CHECKPOINT shutdown: tics not updated");
+		console_log("CHECKPOINT shutdown: tics not updated");
 		abort();
 	}
 	else
@@ -62,7 +63,7 @@ int shutdown_request(void)
 {
 	extern int shutdown;
 
-	log("Received USR2 - shutdown request");
+	console_log("Received USR2 - shutdown request");
 	shutdown = 1;
 }
 
@@ -73,7 +74,7 @@ int hupsig(void)
 {
 	extern int shutdown;
 
-	log("Received SIGHUP, SIGINT, or SIGTERM. Shutting down");
+	console_log("Received SIGHUP, SIGINT, or SIGTERM. Shutting down");
 	exit(0);   /* something more elegant should perhaps be substituted */
 }
 
@@ -81,5 +82,5 @@ int hupsig(void)
 
 int logsig(void)
 {
-	log("Signal received. Ignoring.");
+	console_log("Signal received. Ignoring.");
 }

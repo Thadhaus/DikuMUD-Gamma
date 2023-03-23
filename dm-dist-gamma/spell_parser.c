@@ -3,6 +3,8 @@
 *  Usage : Interpreter of spells                                          *
 *  Copyright (C) 1990, 1991 - see 'license.doc' for complete information. *
 ************************************************************************* */
+#include <stdlib.h>
+#include <string.h>
 
 #include <stdio.h>
 #include <assert.h>
@@ -43,10 +45,6 @@ extern struct room_data *world;
 extern struct char_data *character_list;
 extern char *spell_wear_off_msg[];
 
-
-/* Extern procedures */
-
-char *strdup(char *str);
 
 /* Extern procedures */
 void cast_armor( byte level, struct char_data *ch, char *arg, int si, struct char_data *tar_ch, struct obj_data *tar_obj);
